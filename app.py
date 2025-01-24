@@ -14,8 +14,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    image = list(popular_df['Image-URL-M'].values)
-    print("Image URLs:", image)
     return render_template('index.html',
                            book_name=list(popular_df['Book-Title'].values),
                            author=list(popular_df['Book-Author'].values),
@@ -50,6 +48,10 @@ def recommendation():
         item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
         data.append(item)
     return render_template('recommendation.html',data=data)
+
+@app.route('/about')
+def about():
+    return  render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
